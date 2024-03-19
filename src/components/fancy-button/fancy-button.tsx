@@ -43,7 +43,7 @@ const FancyButton = forwardRef<HTMLButtonElement, FancyButtonProps>(
         ref={ref}
       >
         <div className="flex flex-row gap-2" ref={parent}>
-          {loading && <div><span className="block animate-spin">⏳</span></div>}
+          {loading && <div><span className="block animate-spin">😵‍💫</span></div>}
           <div className="shrink-0">{children}</div>
         </div>
       </button>
