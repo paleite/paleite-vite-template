@@ -1,3 +1,4 @@
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 import type { ButtonHTMLAttributes } from "react";
 import { forwardRef } from "react";
 import type { VariantProps } from "../ui/utils";
@@ -30,15 +31,24 @@ interface FancyButtonProps
     VariantProps<typeof fancyButtonVariants> {}
 
 const FancyButton = forwardRef<HTMLButtonElement, FancyButtonProps>(
-  ({ intent, loading, disabled, type, ...props }, ref) => (
-    <button
-      type={type ?? "button"}
-      disabled={disabled || loading}
-      className={fancyButtonVariants({ intent, disabled, loading })}
-      {...props}
-      ref={ref}
-    />
-  ),
+  ({ children, intent, loading, disabled, type, ...props }, ref) => {
+    const [parent] = useAutoAnimate();
+
+    return (
+      <button
+        type={type ?? "button"}
+        disabled={disabled || loading}
+        className={fancyButtonVariants({ intent, disabled, loading })}
+        {...props}
+        ref={ref}
+      >
+        <div className="flex flex-row gap-2" ref={parent}>
+          {loading && <div><span className="block animate-spin">⏳</span></div>}
+          <div className="shrink-0">{children}</div>
+        </div>
+      </button>
+    );
+  },
 );
 
 FancyButton.displayName = "Button";
