@@ -26,15 +26,24 @@ const App = () => {
         <h1 className="mb-2 font-semibold">
           Hello, World! Clicked {count} times
         </h1>
-        <FancyButton
-          onClick={() => {
-            handleClick();
-          }}
-          disabled={isLoading}
-          loading={isLoading}
-        >
-          Fancy Button
-        </FancyButton>
+        <div className="flex gap-2">
+          <FancyButton
+            onClick={() => {
+              setTimestamps([...timestamps].sort(() => Math.random() - 0.5));
+            }}
+          >
+            Shuffle
+          </FancyButton>
+          <FancyButton
+            onClick={() => {
+              handleClick();
+            }}
+            disabled={isLoading}
+            loading={isLoading}
+          >
+            Add timestamp
+          </FancyButton>
+        </div>
       </section>
       <section>
         <h2 className="mb-2 font-semibold">Timestamps</h2>
@@ -42,8 +51,10 @@ const App = () => {
           {timestamps.length === 0 ? (
             <li className="font-black">No timestamps yet!</li>
           ) : (
-            timestamps.map((timestamp, index) => (
-              <li key={index}>{timestamp.toString()}</li>
+            timestamps.map((timestamp) => (
+              <li key={timestamp}>
+                <code>{timestamp.toString()}</code>
+              </li>
             ))
           )}
         </ul>

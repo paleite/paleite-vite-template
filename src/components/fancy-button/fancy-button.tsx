@@ -32,7 +32,7 @@ interface FancyButtonProps
 
 const FancyButton = forwardRef<HTMLButtonElement, FancyButtonProps>(
   ({ children, intent, loading, disabled, type, ...props }, ref) => {
-    const [parent] = useAutoAnimate();
+    const [parent] = useAutoAnimate({ disrespectUserMotionPreference: false });
 
     return (
       <button
@@ -43,7 +43,11 @@ const FancyButton = forwardRef<HTMLButtonElement, FancyButtonProps>(
         ref={ref}
       >
         <div className="flex flex-row gap-2" ref={parent}>
-          {loading && <div><span className="block animate-spin">😵‍💫</span></div>}
+          {loading && (
+            <div>
+              <span className="block animate-spin">😵‍💫</span>
+            </div>
+          )}
           <div className="shrink-0">{children}</div>
         </div>
       </button>
@@ -55,4 +59,3 @@ FancyButton.displayName = "Button";
 
 export { FancyButton };
 export type { FancyButtonProps };
-
